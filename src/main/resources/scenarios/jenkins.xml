@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scenario xmlns="urn:perfcake:scenario:0.3">
+   <properties>
+      <property name="quickstartName" value="sy-plain-http-servlet"/>
+   </properties>
+   <generator class="DefaultMessageGenerator" threads="${perfcake.performance.thread.count:100}">
+      <run type="time" value="${perfcake.performance.duration:60000}"/>
+      <property name="threadQueueSize" value="50000"/>
+   </generator>
+   <sender class="HTTPSender">
+      <property name="target" value="http://localhost:8080/jenkins_1.480.1"/>
+      <!--  property name="method" value="POST"/ -->
+      <property name="method" value="GET"/>
+   </sender>
+   <reporting>
+      <reporter class="ResponseTimeReporter">
+         <destination class="CSVDestination">
+            <period type="time" value="1000"/>
+            <property name="path" value="jenkins-response-time.csv"/>
+         </destination>
+         <!--destination class="ConsoleDestination">
+            <period type="time" value="30000" />
+         </destination-->
+      </reporter>
+      <reporter class="MemoryUsageReporter">
+         <destination class="CSVDestination">
+            <period type="time" value="1000"/>
+            <property name="path" value="jenkins-memory-usage.csv" />
+         </destination>
+      </reporter>
+   </reporting>
+   <messages>
+      <message uri="plain.txt"/>
+   </messages>
+</scenario>
