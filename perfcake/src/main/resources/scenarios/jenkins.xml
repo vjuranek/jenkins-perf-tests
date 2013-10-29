@@ -28,5 +28,17 @@
             <property name="path" value="jenkins-memory-usage.csv" />
          </destination>
       </reporter>
+      <reporter class="AverageThroughputReporter">
+         <destination class="CSVDestination">
+            <period type="time" value="500"/>
+            <property name="path" value="perf-logs/jenkins-throughput.csv"/>
+         </destination>
+	    </reporter>
+      <reporter class="AverageThroughputReporter">
+         <destination class="CSVDestination">
+            <period type="iteration" value="500"/>
+            <property name="path" value="perf-logs/jenkins-throughput-iter.csv"/>
+         </destination>
+      </reporter>
    </reporting>
 </scenario>
