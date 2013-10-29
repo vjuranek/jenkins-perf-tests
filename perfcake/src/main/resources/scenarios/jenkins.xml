@@ -29,7 +29,4 @@
          </destination>
       </reporter>
    </reporting>
-   <messages>
-      <message uri="plain.txt"/>
-   </messages>
 </scenario>
