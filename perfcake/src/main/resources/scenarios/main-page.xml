@@ -3,7 +3,7 @@
 
   <properties>
     <property name="server.url" value="${server.url}"/>
-    <property name="server.port" value="${server.port:8080}"/>
+    <property name="server.port" value="${server.port}"/>
   </properties>
 
   <generator class="DefaultMessageGenerator" threads="${perfcake.performance.thread.count:100}">
@@ -12,7 +12,7 @@
   </generator>
   
   <sender class="HTTPSender">
-    <property name="target" value="http://${server.url}:${server.port}"/>
+    <property name="target" value="http://${server.url}:${server.port:8080}"/>
     <property name="method" value="GET"/>                                                                                               
   </sender>
   
