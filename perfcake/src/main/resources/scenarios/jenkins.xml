@@ -1,44 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <scenario xmlns="urn:perfcake:scenario:1.0">
-   <properties>
-      <property name="quickstartName" value="sy-plain-http-servlet"/>
-   </properties>
-   <generator class="DefaultMessageGenerator" threads="${perfcake.performance.thread.count:100}">
-      <run type="time" value="${perfcake.performance.duration:60000}"/>
-      <property name="threadQueueSize" value="50000"/>
-   </generator>
-   <sender class="HTTPSender">
-      <property name="target" value="http://localhost:8080/jenkins_1.480.1"/>
-      <!--  property name="method" value="POST"/ -->
-      <property name="method" value="GET"/>
-   </sender>
-   <reporting>
-      <reporter class="ResponseTimeReporter">
-         <destination class="CSVDestination">
-            <period type="time" value="1000"/>
-            <property name="path" value="jenkins-response-time.csv"/>
-         </destination>
-         <!--destination class="ConsoleDestination">
-            <period type="time" value="30000" />
-         </destination-->
-      </reporter>
-      <reporter class="MemoryUsageReporter">
-         <destination class="CSVDestination">
-            <period type="time" value="1000"/>
-            <property name="path" value="jenkins-memory-usage.csv" />
-         </destination>
-      </reporter>
-      <reporter class="AverageThroughputReporter">
-         <destination class="CSVDestination">
-            <period type="time" value="500"/>
-            <property name="path" value="perf-logs/jenkins-throughput.csv"/>
-         </destination>
-	    </reporter>
-      <reporter class="AverageThroughputReporter">
-         <destination class="CSVDestination">
-            <period type="iteration" value="500"/>
-            <property name="path" value="perf-logs/jenkins-throughput-iter.csv"/>
-         </destination>
-      </reporter>
-   </reporting>
+
+  <properties>
+    <property name="server.url" value="${server.url}"/>
+    <property name="server.port" value="${server.port:8080}"/>
+  </properties>
+
+  <generator class="DefaultMessageGenerator" threads="${perfcake.performance.thread.count:100}">
+    <run type="time" value="${perfcake.performance.duration:60000}"/>
+    <property name="threadQueueSize" value="50000"/>
+  </generator>
+  
+  <sender class="HTTPSender">
+    <property name="target" value="http://${server.url}:${server.port}"/>
+    <property name="method" value="GET"/>                                                                                               
+  </sender>
+  
+  <reporting>
+    <reporter class="ResponseTimeReporter">
+      <destination class="CSVDestination">
+        <period type="time" value="1000"/>
+        <property name="path" value="perf-logs/main-page/jenkins-response-time.csv"/>
+      </destination>
+    </reporter>
+    <reporter class="AverageThroughputReporter">
+      <destination class="CSVDestination">
+        <period type="time" value="500"/>
+        <property name="path" value="perf-logs/main-page/jenkins-throughput.csv"/>
+      </destination>
+    </reporter>
+    <reporter class="AverageThroughputReporter">
+      <destination class="CSVDestination">
+        <period type="iteration" value="500"/>
+        <property name="path" value="perf-logs/main-page/jenkins-throughput-iter.csv"/>
+      </destination>
+    </reporter>
+  </reporting>
+  
 </scenario>
