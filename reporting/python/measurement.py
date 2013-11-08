@@ -1,6 +1,14 @@
 
 from numpy import average
 
+class MeasurementSet:
+    
+    def __init__(self, measurements):
+        self.measurements = measurements
+
+    def getMeasurements(self):
+        return self.measurements
+
 class Measurement:
     
     def __init__(self, quantity, values=[], units=""):
@@ -15,10 +23,5 @@ class Measurement:
         return average(self.values, axis=0)
 
 
-class Point:
-
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
 
         
