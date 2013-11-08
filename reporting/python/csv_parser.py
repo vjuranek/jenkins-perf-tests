@@ -31,9 +31,9 @@ class CsvParser:
         for row in self.reader:
             i = 0
             for pos in q_pos:
-                # print "quantity, value: %s, %s" % (q_names[i],row[pos])
                 measurements[i].add(row[pos])
                 i += 1
+
         return measurements
 
     def close(self):
