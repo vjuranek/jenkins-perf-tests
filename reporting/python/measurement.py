@@ -11,8 +11,10 @@ class MeasurementSet:
 
 class Measurement:
     
-    def __init__(self, quantity, values=[], units=""):
+    def __init__(self, quantity, values=None, units=""):
         self.quantity = quantity
+        if values is None:
+            values = []
         self.values = values
         self.units = units
 
