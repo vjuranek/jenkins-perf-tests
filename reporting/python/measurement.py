@@ -1,5 +1,6 @@
 
 from numpy import average
+import matplotlib.pyplot as plt
 
 class MeasurementSet:
     
@@ -24,6 +25,10 @@ class Measurement:
     def avg(self):
         return average(self.values, axis=0)
 
-
+    def plot(self):
+        plt.plot(self.values, 'y.-')
+        plt.title(self.quantity)
+        plt.ylabel(self.quantity)
+        return plt
 
         
