@@ -1,32 +1,40 @@
 
 import csv
+from measurement import *
 
 class CsvParser:
 
-    def __init__(self, file_name, x_name, y_name, delimiter=";"):
-        print "Parsing %s"%file_name
-        self.x_name = x_name
-        self.y_name = y_name
-        self.x_pos = 0
-        self.y_pos = 0
-
+    def __init__(self, file_name, delimiter=";"):
         f = open(file_name, "rb")
         self.reader = csv.reader(f, delimiter=delimiter)
         self.header = self.reader.next()
-        self.__parse_header()
 
-    def __parse_header(self):
+    def __parse_header(self, q_names):
         header_len = len(self.header)
-        for col_num in range(0,header_len):
-            if(self.header[col_num] == self.x_name):
-                self.x_pos = col_num
-            if(self.header[col_num] == self.y_name):
-                self.y_pos = col_num
+        q_pos = []
+        for q_name in q_names:
+            for col_num in range(0,header_len):
+                if(self.header[col_num] == q_name):
+                    q_pos.append(col_num)
+                    break
+        return q_pos
         
 
-    def getMeasurement(self):
+    def getMeasurementSet(self, *q_names):
+        measurements = []
+        for q in q_names:
+            measurements.append(Measurement(q))
+
+        q_pos = self.__parse_header(q_names)
+        # TODO assert that len(q_pos) == len(measurements)
+
         for row in self.reader:
-            print '%s: %s' % (row[self.x_pos], row[self.y_pos])
+            i = 0
+            for pos in q_pos:
+                # print "quantity, value: %s, %s" % (q_names[i],row[pos])
+                measurements[i].add(row[pos])
+                i += 1
+        return measurements
 
     def close(self):
         self.reader.close()
