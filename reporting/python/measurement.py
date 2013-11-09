@@ -25,8 +25,8 @@ class Measurement:
     def avg(self):
         return average(self.values, axis=0)
 
-    def plot(self):
-        plt.plot(self.values, 'y.-')
+    def plot(self, color='b'):
+        plt.plot(self.values, '%s.-'%color)
         plt.title(self.quantity)
         plt.ylabel(self.quantity)
         return plt
