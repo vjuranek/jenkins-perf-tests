@@ -2,6 +2,8 @@
 from numpy import average
 import matplotlib.pyplot as plt
 
+
+
 class MeasurementSet:
     
     def __init__(self, measurements):
@@ -9,6 +11,8 @@ class MeasurementSet:
 
     def getMeasurements(self):
         return self.measurements
+
+
 
 class Measurement:
     
@@ -19,16 +23,33 @@ class Measurement:
         self.values = values
         self.units = units
 
+
     def add(self, value):
         self.values.append(value)
+
 
     def avg(self):
         return average(self.values, axis=0)
 
-    def plot(self, color='b'):
-        plt.plot(self.values, '%s.-'%color)
-        plt.title(self.quantity)
+
+    def plot(self, xvar=None, color='b'):
+        if xvar is not None:
+            plt.plot(xvar.values, self.values, '%s.-'%color)
+            plt.xlabel(xvar.quantity)
+        else:
+            plt.plot(self.values, '%s.-'%color)
+
         plt.ylabel(self.quantity)
+        plt.title(self.quantity)
         return plt
 
+
+    def plot_with(self, xvar, yvar, color1='b', color2='r'):
+        plt.plot(xvar.values, self.values, color1, xvar.values, yvar.values, color2)
+        return plt
+
+
+    def save_plot(self, filname):
+        plt = self.plot()
+        plt.savefig(filename, filename[-3:])
         
